@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "testrunner.h": "c",
+        "ctype.h": "c"
+    }
+}
