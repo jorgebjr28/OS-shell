@@ -1,33 +1,50 @@
-# Shell Project with Subshell and `waitpid` Implementation
+# Shell Project
 
-This project implements a simple shell program in C that includes the following features:
-
-1. **Subshell Commands**: The shell allows users to create new subshells. Each subshell resets the command history and counter while displaying its process ID.
-2. **Command Execution Using `waitpid`**: The shell executes commands by searching the system PATH and uses `waitpid` to ensure the parent process waits for its direct child to finish before returning to the prompt.
-
-The project also includes a `smp1_tests.c` test suite to validate the functionality of the shell implementation.
+This project implements a custom shell in C, with features such as executing commands, maintaining a command history, and supporting subshells. The shell is tested against various scenarios to ensure functionality and correctness.
 
 ---
 
 ## Features
 
-### Subshell (`subshell` Command)
-- Spawns a new subshell with a unique process ID.
-- Resets the command history and counter.
-- Prevents excessive subshell nesting with a limit, displaying a "Too deep!" message if the limit is exceeded.
-
 ### Command Execution
-- Executes commands by searching the system PATH.
-- Implements `waitpid` for robust process handling, ensuring the shell waits for its direct child process.
+- Executes commands by searching the system PATH (e.g., `ls`, `/bin/ls`).
+- Handles invalid commands with appropriate error messages.
 
 ### Command History
-- Tracks previously executed commands, allowing reruns using syntax like `!1` to rerun the first command.
+- Keeps track of executed commands and displays them via the `history` command.
+- Allows re-execution of previous commands using the `!N` syntax, where `N` is the command index.
+
+### Subshells
+- Supports creating subshells using the `subshell` command.
+- Limits subshell depth to prevent infinite recursion.
+
+### Command Counter
+- Displays a counter in the shell prompt that increments with each command.
+
+### Exit Command
+- Exits the shell and displays the PID of the exiting process.
 
 ---
 
-## Running the Shell
+## Files
 
-### Compilation
-Use the following command to compile the project:
+### `shell.c`
+The main implementation of the shell, featuring:
+- Command parsing and execution.
+- History management.
+- Subshell creation.
+- Command counter and prompt management.
+
+### `smp1_tests.c`
+The test suite for the shell, containing:
+- Tests for valid and invalid command execution.
+- Verification of the command counter and history.
+- Tests for subshell creation and depth limits.
+
+---
+
+## Compilation
+
+To compile the shell and test suite:
 ```bash
-gcc shell.c -o shell
+make
